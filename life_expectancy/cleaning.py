@@ -1,7 +1,7 @@
 """Script to clean and save data"""
 
-import pandas as pd
 import argparse
+import pandas as pd
 
 def clean_data(region: str = "PT") -> pd.DataFrame:
     """Load"eu_life_expectancy_raw.tsv" file in the "data" folder
@@ -44,4 +44,3 @@ if __name__=='__main__': # pragma: no cover
     args = parser.parse_args()
 
     clean_data(args.region)
-
