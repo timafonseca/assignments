@@ -1,9 +1,25 @@
 """Script to clean and save data"""
 
 import argparse
+import logging
 import pandas as pd
+from pathlib import Path
 
-def clean_data(region: str = "PT") -> pd.DataFrame:
+
+def load_data() -> pd.DataFrame:
+
+    #root = Path()
+    #print(root)
+
+    df_input = pd.read_csv(
+        "./life_expectancy/data/eu_life_expectancy_raw.tsv", sep="\t"
+    )
+
+    return df_input
+
+
+
+def clean_data(df_input : pd.DataFrame , region: str = "PT") -> pd.DataFrame:
     """Load"eu_life_expectancy_raw.tsv" file in the "data" folder
     unpivot the data into a long format with columns for unit, sex, age, region, year, and value
     convert the year column to an integer
@@ -11,9 +27,6 @@ def clean_data(region: str = "PT") -> pd.DataFrame:
     filter the data to only include records where the region is Portugal (PT)
     Saved "pt_life_expectancy.csv" with the output.
     """
-    df_input = pd.read_csv(
-        "./life_expectancy/data/eu_life_expectancy_raw.tsv", sep="\t"
-    )
 
     df_input[["unit", "sex", "age", "region"]] = df_input[
         "unit,sex,age,geo\\time"
@@ -34,7 +47,20 @@ def clean_data(region: str = "PT") -> pd.DataFrame:
 
     df_output = df_col_fix.loc[df_col_fix["region"] == region]
 
+    return df_output
+
+def save_data(df_output:pd.DataFrame):
+
     df_output.to_csv("./life_expectancy/data/pt_life_expectancy.csv", index=False)
+
+    logging.info("Successfully saved data")
+
+
+def main(region_filter: str) -> None:
+
+    save_data(df_output=
+        clean_data(df_input=
+                   load_data(), region=region_filter))
 
 
 if __name__=='__main__': # pragma: no cover
@@ -43,4 +69,4 @@ if __name__=='__main__': # pragma: no cover
     parser.add_argument('--region', '-r', default='PT', help='Region to filter on (default: PT)')
     args = parser.parse_args()
 
-    clean_data(args.region)
+    main(args.region)
