@@ -3,10 +3,15 @@
 import argparse
 import logging
 import pandas as pd
-from pathlib import Path
+#from pathlib import Path
 
 
 def load_data() -> pd.DataFrame:
+    """read and return the input data
+
+    Returns:
+        pd.DataFrame: input data
+    """
 
     #root = Path()
     #print(root)
@@ -26,6 +31,9 @@ def clean_data(df_input : pd.DataFrame , region: str = "PT") -> pd.DataFrame:
     convert the value column to a float and remove any NaN values
     filter the data to only include records where the region is Portugal (PT)
     Saved "pt_life_expectancy.csv" with the output.
+
+    Args:
+        region_filter (str): "PT"
     """
 
     df_input[["unit", "sex", "age", "region"]] = df_input[
@@ -50,6 +58,11 @@ def clean_data(df_input : pd.DataFrame , region: str = "PT") -> pd.DataFrame:
     return df_output
 
 def save_data(df_output:pd.DataFrame):
+    """save data into a file
+
+    Args:
+        df_output (pd.DataFrame): output data 
+    """
 
     df_output.to_csv("./life_expectancy/data/pt_life_expectancy.csv", index=False)
 
@@ -57,6 +70,11 @@ def save_data(df_output:pd.DataFrame):
 
 
 def main(region_filter: str) -> None:
+    """load_data, clean_data, and save_data in one function
+
+    Args:
+        region_filter (str): "PT"
+    """
 
     save_data(df_output=
         clean_data(df_input=
