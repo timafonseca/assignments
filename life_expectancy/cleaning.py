@@ -45,16 +45,19 @@ def clean_data(df_input : pd.DataFrame , region: str = "PT") -> pd.DataFrame:
     df_col_fix = pd.melt(
         df_input,
         id_vars=["unit", "sex", "age", "region"],
-        var_name="year",
-        value_name="value",
+        var_name="year"
     )
-
-    df_col_fix["year"] = df_col_fix["year"].astype(int)
+    
 
     df_col_fix["value"] = pd.to_numeric(df_col_fix["value"], errors="coerce")
 
-    df_output = df_col_fix.loc[df_col_fix["region"] == region]
+    df_col_fix = df_col_fix.dropna()
 
+    df_col_fix["year"] = df_col_fix["year"].astype(int)
+    df_col_fix["value"] = df_col_fix["value"].astype(float)
+
+    df_output = df_col_fix[df_col_fix["region"] == region]
+    
     return df_output
 
 def save_data(df_output:pd.DataFrame):
@@ -76,9 +79,7 @@ def main(region_filter: str) -> None:
         region_filter (str): "PT"
     """
 
-    save_data(df_output=
-        clean_data(df_input=
-                   load_data(), region=region_filter))
+    save_data(clean_data(load_data(), region=region_filter))
 
 
 if __name__=='__main__': # pragma: no cover
