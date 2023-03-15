@@ -49,12 +49,12 @@ def clean_data(df_input : pd.DataFrame , region: str = "PT") -> pd.DataFrame:
     )
     
 
-    df_col_fix["value"] = pd.to_numeric(df_col_fix["value"], errors="coerce")
-
     df_col_fix = df_col_fix.dropna()
 
     df_col_fix["year"] = df_col_fix["year"].astype(int)
-    df_col_fix["value"] = df_col_fix["value"].astype(float)
+    df_col_fix["value"] = df_col_fix["value"].str.extract(r"(\d+\.?\d*)").astype(float)
+    df_col_fix["value"] = pd.to_numeric(df_col_fix["value"], errors="coerce")
+    df_col_fix = df_col_fix.dropna()
 
     df_output = df_col_fix[df_col_fix["region"] == region]
     
