@@ -11,6 +11,6 @@ def test_clean_data(pt_life_expectancy_expected):
     pt_life_expectancy_actual = pd.read_csv(
         OUTPUT_DIR / "pt_life_expectancy.csv"
     )
-    # pd.testing.assert_frame_equal(
-    #     pt_life_expectancy_actual, pt_life_expectancy_expected
-    # )
+    pd.testing.assert_frame_equal(
+        pt_life_expectancy_actual, pt_life_expectancy_expected
+    )
