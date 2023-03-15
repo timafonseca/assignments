@@ -47,8 +47,6 @@ def clean_data(df_input : pd.DataFrame , region: str = "PT") -> pd.DataFrame:
         id_vars=["unit", "sex", "age", "region"],
         var_name="year"
     )
-    
-
     df_col_fix = df_col_fix.dropna()
 
     df_col_fix["year"] = df_col_fix["year"].astype(int)
@@ -57,7 +55,6 @@ def clean_data(df_input : pd.DataFrame , region: str = "PT") -> pd.DataFrame:
     df_col_fix = df_col_fix.dropna()
 
     df_output = df_col_fix[df_col_fix["region"] == region]
-    
     return df_output
 
 def save_data(df_output:pd.DataFrame):
