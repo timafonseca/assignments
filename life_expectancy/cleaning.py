@@ -17,7 +17,7 @@ def load_data() -> pd.DataFrame:
     #print(root)
 
     df_input = pd.read_csv(
-        "./life_expectancy/data/eu_life_expectancy_raw.tsv", sep="\t"
+        "./life_expectancy/data/eu_life_expectancy_raw_test.tsv", sep="\t"
     )
 
     return df_input
@@ -55,6 +55,7 @@ def clean_data(df_input : pd.DataFrame , region: str = "PT") -> pd.DataFrame:
     df_col_fix = df_col_fix.dropna()
 
     df_output = df_col_fix[df_col_fix["region"] == region]
+    
     return df_output
 
 def save_data(df_output:pd.DataFrame):
@@ -76,7 +77,7 @@ def main(region_filter: str) -> None:
         region_filter (str): "PT"
     """
 
-    save_data(clean_data(load_data(), region=region_filter))
+    return save_data(clean_data(load_data(), region=region_filter))
 
 
 if __name__=='__main__': # pragma: no cover
