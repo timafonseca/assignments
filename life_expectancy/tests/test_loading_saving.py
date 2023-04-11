@@ -6,14 +6,19 @@ import pandas as pd
 from life_expectancy.loading_saving import load_data, save_data
 from . import FIXTURES_DIR
 
-
-def test_load_data(loaded_data_expected):
+@mock.patch("life_expectancy.loading_saving.pd.read_csv")
+def test_load_data(mock_read,input_data):
     """Test if the load function works"""
 
-    loaded_data = load_data(FIXTURES_DIR / "eu_life_expectancy_raw_test.tsv")
+    mock_read.return_value = input_data
 
-    pd.testing.assert_frame_equal(loaded_data, loaded_data_expected)
+    file_path = FIXTURES_DIR / "eu_life_expectancy_raw_test.tsv"
 
+    loaded_data = load_data(file_path)
+
+    pd.testing.assert_frame_equal(loaded_data, input_data)
+
+    mock_read.assert_called_once_with(file_path ,  sep="\t")
 
 @mock.patch("life_expectancy.loading_saving.pd.DataFrame.to_csv")
 def test_save_data(mock_to_csv, pt_life_expectancy_expected):
@@ -26,4 +31,3 @@ def test_save_data(mock_to_csv, pt_life_expectancy_expected):
     mock_to_csv.assert_called_with(
         FIXTURES_DIR / "pt_life_expectancy.csv", index=False
     )
-    

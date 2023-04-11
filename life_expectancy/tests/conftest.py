@@ -22,16 +22,8 @@ def pt_life_expectancy_expected() -> pd.DataFrame:
 
 
 @pytest.fixture(scope="session")
-def loaded_data_expected() -> pd.DataFrame:
-    """Fixture to load the input of the cleaning script for a csv file"""
+def input_data() -> pd.DataFrame:
+    """Fixture to load the test input of the cleaning script for a csv file"""
     return pd.read_csv(
         FIXTURES_DIR / "eu_life_expectancy_raw_test.tsv", sep="\t", na_values=[":"]
-    )
-
-
-@pytest.fixture(scope="session")
-def save_data_expected() -> pd.DataFrame:
-    """Fixture to load the input of the cleaning script for a csv file"""
-    return pd.read_csv(
-        FIXTURES_DIR / "eu_life_expectancy_expected_load_test.csv", sep="\t"
     )
