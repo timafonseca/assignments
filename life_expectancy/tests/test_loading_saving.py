@@ -2,23 +2,27 @@
 import pandas as pd
 from unittest import mock
 
-from life_expectancy.cleaning import load_data, save_data
+from life_expectancy.loading_saving import load_data, save_data
+from . import FIXTURES_DIR, OUTPUT_DIR
 
 
-def test_load_data(loaded_data_test):
+def test_load_data(loaded_data_expected):
     """Test if the load function works"""
 
-    loaded_data=load_data()
+    loaded_data = load_data(FIXTURES_DIR / "eu_life_expectancy_raw_test.tsv")
 
-    pd.testing.assert_frame_equal(
-        loaded_data, loaded_data_test
+    pd.testing.assert_frame_equal(loaded_data, loaded_data_expected)
+
+
+@mock.patch("life_expectancy.loading_saving.pd.DataFrame.to_csv")
+def test_save_data(mock_to_csv, pt_life_expectancy_expected):
+    """Test if the save function works"""
+
+    mock_to_csv.side_effect = print("saved", end="")
+
+    save_data(pt_life_expectancy_expected, FIXTURES_DIR / "fixtures")
+
+    mock_to_csv.assert_called_with(
+        FIXTURES_DIR / "pt_life_expectancy.csv", index=False
     )
 
-@mock.patch("pandas.DataFrame.to_csv")
-def test_save_data(mock_to_csv, pt_life_expectancy_expected):
-    """Test if the load function works"""
-
-    output_file_path = "./life_expectancy/data/pt_life_expectancy.csv"
-    save_data(pt_life_expectancy_expected)
-
-    mock_to_csv.assert_called_with(output_file_path, index=False)
