@@ -34,5 +34,4 @@ def clean_data(df_input: pd.DataFrame, region: str = "PT") -> pd.DataFrame:
     df_col_fix = df_col_fix.dropna()
 
     df_output = df_col_fix[df_col_fix["region"] == region]
-    
     return df_output

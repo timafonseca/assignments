@@ -1,8 +1,7 @@
 """Script to clean and save data"""
 
-import pandas as pd
 import pathlib
-
+import pandas as pd
 
 def load_data(path: pathlib.Path) -> pd.DataFrame:
     """Read and return the input data

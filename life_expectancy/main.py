@@ -4,7 +4,6 @@ import argparse
 import pathlib
 from life_expectancy.cleaning import clean_data
 from life_expectancy.loading_saving import load_data, save_data
-import pandas as pd
 
 
 FILE_NAME = "eu_life_expectancy_raw_test.tsv"

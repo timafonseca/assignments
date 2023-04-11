@@ -1,9 +1,10 @@
 """Tests for the loading and saving module"""
-import pandas as pd
+
 from unittest import mock
+import pandas as pd
 
 from life_expectancy.loading_saving import load_data, save_data
-from . import FIXTURES_DIR, OUTPUT_DIR
+from . import FIXTURES_DIR
 
 
 def test_load_data(loaded_data_expected):
@@ -25,4 +26,4 @@ def test_save_data(mock_to_csv, pt_life_expectancy_expected):
     mock_to_csv.assert_called_with(
         FIXTURES_DIR / "pt_life_expectancy.csv", index=False
     )
-
+    
