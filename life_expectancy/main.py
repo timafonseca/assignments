@@ -24,7 +24,9 @@ def main(region_filter: str) -> None:
     # clean data
     df_clean = clean_data(df_load ,region_filter)
 
-    return save_data(df_clean ,file_path)
+    save_data(df_clean ,file_path)
+
+    return df_clean
 
 
 if __name__=='__main__': # pragma: no cover

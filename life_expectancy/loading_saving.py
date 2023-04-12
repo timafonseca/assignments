@@ -17,7 +17,7 @@ def load_data(path: pathlib.Path) -> pd.DataFrame:
     return df_input
 
 
-def save_data(df_output: pd.DataFrame, path: pathlib.Path) -> pd.DataFrame:
+def save_data(df_output: pd.DataFrame, path: pathlib.Path) -> None:
     """save data into a file
 
     Args:
