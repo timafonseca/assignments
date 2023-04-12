@@ -3,9 +3,10 @@
 import pathlib
 import pandas as pd
 
+
 def load_data(path: pathlib.Path) -> pd.DataFrame:
     """Read and return the input data
-    Param: 
+    Param:
         path: Path to csv file
     Returns:
         pd.DataFrame: input data
@@ -20,7 +21,7 @@ def save_data(df_output: pd.DataFrame, path: pathlib.Path) -> pd.DataFrame:
     """save data into a file
 
     Args:
-        df_output (pd.DataFrame): output data 
+        df_output (pd.DataFrame): output data
     """
 
     df_output.to_csv(path.parent / "pt_life_expectancy.csv", index=False)

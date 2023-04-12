@@ -22,9 +22,9 @@ def main(region_filter: str) -> None:
     df_load = load_data(file_path)
 
     # clean data
-    df_clean = clean_data(df_load,region_filter)
+    df_clean = clean_data(df_load ,region_filter)
 
-    return save_data(df_clean,file_path)
+    return save_data(df_clean ,file_path)
 
 
 if __name__=='__main__': # pragma: no cover
