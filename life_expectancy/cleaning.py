@@ -10,6 +10,7 @@ def clean_data(df_input: pd.DataFrame, region: str = "PT") -> pd.DataFrame:
     convert the value column to a float and remove any NaN values
     filter the data to only include records where the region is Portugal (PT)
     Saved "pt_life_expectancy.csv" with the output.
+
     Args:
         region_filter (str): "PT"
     """
