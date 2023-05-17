@@ -1,4 +1,5 @@
 """Pytest configuration file"""
+import json
 import pandas as pd
 import pytest
 
@@ -22,8 +23,20 @@ def pt_life_expectancy_expected() -> pd.DataFrame:
 
 
 @pytest.fixture(scope="session")
-def input_data() -> pd.DataFrame:
+def input_data_csv() -> pd.DataFrame:
     """Fixture to load the test input of the cleaning script for a csv file"""
     return pd.read_csv(
         FIXTURES_DIR / "eu_life_expectancy_raw_test.tsv", sep="\t", na_values=[":"]
     )
+
+@pytest.fixture(scope="session")
+def eu_life_expectancy_expected_json() -> pd.DataFrame:
+    """Fixture to load the expected output of the cleaning script"""
+    return pd.read_csv(FIXTURES_DIR / "eu_life_expectancy_json_test.csv")
+
+@pytest.fixture(scope="session")
+def input_data_json() -> pd.DataFrame:
+    """Fixture to load the test input of the cleaning script for a csv file"""
+    with open(FIXTURES_DIR / "eurostat_life_expect_test.json", encoding="utf-8") as file:
+        data = json.load(file)
+    return pd.json_normalize(data)
